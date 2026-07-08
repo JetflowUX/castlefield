@@ -88,7 +88,7 @@ export function Navbar() {
 
       {/* Main Navbar */}
       <nav
-        className={`transition-all duration-300 ${isScrolled ? 'bg-[#0E0E10]/95 backdrop-blur-md py-4 shadow-lg shadow-black/50' : 'bg-gradient-to-b from-black/80 to-transparent py-6'}`}>
+        className={`transition-all duration-300 ${isScrolled ? 'bg-zinc-950/98 backdrop-blur-lg border-b border-white/5 py-4 shadow-xl shadow-black/60' : 'bg-gradient-to-b from-black/80 to-transparent py-6'}`}>
         
         <div className="container mx-auto px-6 flex justify-between items-center">
           {/* Logo */}
