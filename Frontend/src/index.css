@@ -1,5 +1,5 @@
 /* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 /* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
 @import 'tailwindcss/base';
@@ -8,108 +8,47 @@
 
 /* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
 
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #0E0E10;
-  color: #ffffff;
-  overflow-x: hidden;
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 100% 50%; /* Castlefield Red */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 100% 50%;
+    --radius: 1rem;
+  }
 }
-/* Custom Scrollbar for a premium feel */
-::-webkit-scrollbar {
-  width: 10px;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/30;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
 }
-::-webkit-scrollbar-track {
-  background: #0E0E10;
-}
-::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #E01E1E;
-}
-/* Hide scrollbar for select elements if needed */
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-/* Glassmorphism & Neon Glow Utilities */
 .glass-panel {
-  background: rgba(20, 20, 25, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
 }
-
-.glass-panel-heavy {
-  background: rgba(14, 14, 16, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60;
 }
-
-.neon-glow-red {
-  box-shadow: 0 0 20px rgba(224, 30, 30, 0.15), 0 0 40px rgba(224, 30, 30, 0.05);
+.metallic-gradient {
+  @apply bg-gradient-to-br from-zinc-700 via-zinc-900 to-black;
 }
-
-.neon-glow-red-hover:hover {
-  box-shadow: 0 0 30px rgba(224, 30, 30, 0.35), 0 0 60px rgba(224, 30, 30, 0.15);
-  border-color: rgba(224, 30, 30, 0.4) !important;
-}
-
-/* 3D Transform and Card Utilities */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-/* Ambient Floating Glow Blobs */
-.glow-blob {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.12;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.glow-blob-red {
-  background: #E01E1E;
-}
-
-.glow-blob-purple {
-  background: #8B5CF6;
-}
-
-/* Drifting background animation */
-@keyframes floatSlowly {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(50px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-30px, 30px) scale(0.95);
-  }
-}
-
-.animate-float-slow {
-  animation: floatSlowly 20s infinite ease-in-out;
-}
-
-.animate-float-slower {
-  animation: floatSlowly 28s infinite ease-in-out reverse;
-}
-
