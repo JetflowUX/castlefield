@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { VehicleCard } from '../components/VehicleCard';
 import { Search, Filter, ChevronDown } from 'lucide-react';
+import { VehicleDetailsModal } from '../components/VehicleDetailsModal';
 import vehiclesData from '../data/vehicles.json';
 
 export function Showroom() {
@@ -11,6 +12,14 @@ export function Showroom() {
   const [selectedMake, setSelectedMake] = useState(searchParams.get('make') || '');
   const [maxPrice, setMaxPrice] = useState(searchParams.get('maxPrice') || '');
   const [sortBy, setSortBy] = useState('Newest First');
+
+  const [selectedVehicle, setSelectedVehicle] = useState<any | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenDetails = (vehicle: any) => {
+    setSelectedVehicle(vehicle);
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     const make = searchParams.get('make');
@@ -212,12 +221,13 @@ export function Showroom() {
 
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredVehicles.map((vehicle, idx) =>
-              <VehicleCard key={vehicle.id} {...vehicle} delay={idx * 0.03} />
+              <VehicleCard key={vehicle.id} {...vehicle} delay={idx * 0.03} onViewDetails={handleOpenDetails} />
               )}
             </div>
           </div>
         </div>
       </div>
+      <VehicleDetailsModal vehicle={selectedVehicle} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>);
 
 }

@@ -1,28 +1,45 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Settings, Calendar, Fuel, Gauge } from 'lucide-react';
+
 interface VehicleCardProps {
+  id: string;
   make: string;
   model: string;
   price: string;
+  priceNum: number;
   image: string;
   year: string;
   mileage: string;
   fuel: string;
   transmission: string;
+  color?: string;
+  bodyType?: string;
   delay?: number;
+  onViewDetails?: (vehicle: any) => void;
 }
-export function VehicleCard({
-  make,
-  model,
-  price,
-  image,
-  year,
-  mileage,
-  fuel,
-  transmission,
-  delay = 0
-}: VehicleCardProps) {
+
+export function VehicleCard(props: VehicleCardProps) {
+  const {
+    make,
+    model,
+    price,
+    image,
+    year,
+    mileage,
+    fuel,
+    transmission,
+    delay = 0,
+    onViewDetails
+  } = props;
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (onViewDetails) {
+      e.preventDefault();
+      onViewDetails(props);
+    }
+  };
+
   return (
     <motion.div
       initial={{
@@ -41,7 +58,10 @@ export function VehicleCard({
         duration: 0.6,
         delay
       }}
-      className="group relative rounded-2xl overflow-hidden bg-card border border-white/5 hover:border-white/20 transition-all duration-500">
+      onClick={handleCardClick}
+      className={`group relative rounded-2xl overflow-hidden bg-card border border-white/5 hover:border-white/20 hover-glow transition-all duration-500 ${
+        onViewDetails ? 'cursor-pointer' : ''
+      }`}>
       
       {/* Image Container */}
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -86,7 +106,9 @@ export function VehicleCard({
           </div>
         </div>
 
-        <button className="w-full mt-6 py-3 bg-white/5 hover:bg-brand-red text-white text-sm font-medium rounded-xl transition-colors border border-white/10 hover:border-brand-red">
+        <button 
+          onClick={handleCardClick}
+          className="w-full mt-6 py-3 bg-white/5 hover:bg-brand-red text-white text-sm font-medium rounded-xl transition-colors border border-white/10 hover:border-brand-red">
           View Details
         </button>
       </div>

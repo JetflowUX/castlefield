@@ -1,7 +1,34 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle2 } from 'lucide-react';
+
 export function Contact() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [enquiryType, setEnquiryType] = useState('general');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!firstName || !lastName || !email || !phone || !message) return;
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      // Reset fields
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+    }, 1200);
+  };
+
   return (
     <div className="min-h-screen pt-32 pb-24 px-4 md:px-6">
       <div className="container mx-auto">
@@ -34,14 +61,14 @@ export function Contact() {
             }}
             animate={{
               opacity: 1,
-              x: 0
+              y: 0
             }}
             transition={{
               delay: 0.2
             }}
             className="space-y-8">
             
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-8">
+            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 hover-glow">
               <h2 className="font-heading text-2xl font-bold text-white mb-6">
                 Get In Touch
               </h2>
@@ -143,89 +170,141 @@ export function Contact() {
               delay: 0.4
             }}>
             
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 h-full">
+            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 h-full hover-glow">
               <h2 className="font-heading text-2xl font-bold text-white mb-6">
                 Send a Message
               </h2>
 
-              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-white/80">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
-                      placeholder="John" />
-                    
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-white/80">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
-                      placeholder="Doe" />
-                    
-                  </div>
-                </div>
+              <AnimatePresence mode="wait">
+                {isSubmitted ? (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="flex flex-col items-center justify-center text-center h-[400px] space-y-4"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center shadow-lg">
+                      <CheckCircle2 size={32} />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold font-heading text-white">Message Sent!</h3>
+                      <p className="text-white/60 text-sm mt-2 max-w-sm leading-relaxed">
+                        Thank you for contacting Castlefield Car Centre. We have received your message and will get back to you shortly.
+                      </p>
+                    </div>
+                    <button 
+                      onClick={() => setIsSubmitted(false)}
+                      className="px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl text-xs font-semibold border border-white/10 transition-all"
+                    >
+                      Send another message
+                    </button>
+                  </motion.div>
+                ) : (
+                  <form className="space-y-5" onSubmit={handleSubmit}>
+                    <div className="grid grid-cols-2 gap-5">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-white/80">
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
+                          placeholder="John" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-white/80">
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
+                          placeholder="Doe" />
+                      </div>
+                    </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
-                    placeholder="john@example.com" />
-                  
-                </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-white/80">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
+                        placeholder="john@example.com" />
+                    </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
-                    placeholder="07123 456789" />
-                  
-                </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-white/80">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
+                        placeholder="07123 456789" />
+                    </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80">
-                    Enquiry Type
-                  </label>
-                  <select className="w-full appearance-none bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors">
-                    <option value="general">General Enquiry</option>
-                    <option value="sales">Vehicle Sales</option>
-                    <option value="finance">Finance</option>
-                    <option value="part-exchange">Part Exchange</option>
-                  </select>
-                </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-white/80">
+                        Enquiry Type
+                      </label>
+                      <select 
+                        value={enquiryType}
+                        onChange={(e) => setEnquiryType(e.target.value)}
+                        className="w-full appearance-none bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors"
+                      >
+                        <option value="general">General Enquiry</option>
+                        <option value="sales">Vehicle Sales</option>
+                        <option value="finance">Finance</option>
+                        <option value="part-exchange">Part Exchange</option>
+                      </select>
+                    </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80">
-                    Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors resize-none"
-                    placeholder="How can we help you?">
-                  </textarea>
-                </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-white/80">
+                        Message
+                      </label>
+                      <textarea
+                        rows={4}
+                        required
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brand-red transition-colors resize-none"
+                        placeholder="How can we help you?">
+                      </textarea>
+                    </div>
 
-                <button className="w-full py-4 bg-brand-red hover:bg-red-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2 mt-4">
-                  <Send size={18} />
-                  Send Message
-                </button>
-              </form>
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-4 bg-brand-red hover:bg-red-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2 mt-4 disabled:opacity-50"
+                    >
+                      {isSubmitting ? (
+                        <span>Sending Message...</span>
+                      ) : (
+                        <>
+                          <Send size={18} />
+                          <span>Send Message</span>
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>
       </div>
-    </div>);
-
+    </div>
+  );
 }

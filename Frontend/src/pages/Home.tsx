@@ -130,7 +130,7 @@ export function Home() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="lg:ml-auto w-full max-w-md bg-white/5 border border-white/10 p-8 rounded-2xl relative overflow-hidden backdrop-blur-md"
+              className="lg:ml-auto w-full max-w-md bg-white/5 border border-white/10 p-8 rounded-2xl relative overflow-hidden backdrop-blur-md hover-glow"
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-red to-transparent opacity-50" />
               
@@ -267,7 +267,7 @@ export function Home() {
 
             {/* Right Column: Contact Widget Card */}
             <div className="lg:col-span-1">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sticky top-32 flex flex-col gap-6">
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sticky top-32 flex flex-col gap-6 hover-glow">
                 
                 <div>
                   <h3 className="font-heading text-lg font-bold text-white mb-1">

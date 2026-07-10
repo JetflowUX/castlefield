@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { VehicleCard } from './VehicleCard';
 import { ArrowRight } from 'lucide-react';
+import { VehicleDetailsModal } from './VehicleDetailsModal';
 import vehiclesData from '../data/vehicles.json';
 
 // Curate specific premium vehicles from our database
@@ -10,6 +11,14 @@ const FEATURED_VEHICLES = vehiclesData.filter(v =>
 );
 
 export function FeaturedVehicles() {
+  const [selectedVehicle, setSelectedVehicle] = useState<any | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenDetails = (vehicle: any) => {
+    setSelectedVehicle(vehicle);
+    setIsModalOpen(true);
+  };
+
   return (
     <section className="py-24 bg-background relative overflow-hidden">
       {/* Decorative background elements */}
@@ -36,7 +45,7 @@ export function FeaturedVehicles() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {FEATURED_VEHICLES.map((vehicle, index) =>
-          <VehicleCard key={index} {...vehicle} delay={index * 0.1} />
+          <VehicleCard key={index} {...vehicle} delay={index * 0.1} onViewDetails={handleOpenDetails} />
           )}
         </div>
 
@@ -48,6 +57,7 @@ export function FeaturedVehicles() {
           </p>
         </div>
       </div>
+      <VehicleDetailsModal vehicle={selectedVehicle} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>);
 
 }
