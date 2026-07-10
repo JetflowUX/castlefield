@@ -100,7 +100,7 @@ export function Services() {
             transition={{
               delay: idx * 0.1
             }}
-            className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-colors">
+            className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-white/20 hover-glow transition-all duration-300">
             
               <div className="w-16 h-16 rounded-2xl bg-black flex items-center justify-center mb-6 border border-white/5">
                 {service.icon}

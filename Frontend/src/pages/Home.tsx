@@ -30,7 +30,7 @@ export function Home() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            {/* Box 1: Find Us */}
+            {/* Box 1: Showroom */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -38,28 +38,7 @@ export function Home() {
               transition={{ delay: 0.1 }}
               className="relative aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 group cursor-pointer"
             >
-              <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500 bg-[url('https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=3270')]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
-              <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                <h3 className="font-heading text-2xl font-bold text-white mb-2">Find Us</h3>
-                <Link 
-                  to="/contact" 
-                  className="w-fit px-5 py-2.5 bg-brand-red hover:bg-red-700 text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition-all"
-                >
-                  View Map
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Box 2: Stock */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="relative aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 group cursor-pointer"
-            >
-              <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500 bg-[url('https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=3270')]" />
+              <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500 bg-[url('/img/promo-1.1780989690.jpg')]" />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
               <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
                 <h3 className="font-heading text-2xl font-bold text-white mb-2">Showroom</h3>
@@ -72,7 +51,28 @@ export function Home() {
               </div>
             </motion.div>
 
-            {/* Box 3: Sell Your Car */}
+            {/* Box 2: Finance */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="relative aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 group cursor-pointer"
+            >
+              <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500 bg-[url('/img/promo-2.1780989690.jpg')]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+              <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
+                <h3 className="font-heading text-2xl font-bold text-white mb-2">Finance</h3>
+                <Link 
+                  to="/services" 
+                  className="w-fit px-5 py-2.5 bg-brand-red hover:bg-red-700 text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition-all"
+                >
+                  Finance Options
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Box 3: Part Exchange */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -80,10 +80,10 @@ export function Home() {
               transition={{ delay: 0.3 }}
               className="relative aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 group cursor-pointer"
             >
-              <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500 bg-[url('https://images.unsplash.com/photo-1555353540-64fd8b373ca2?q=80&w=3270')]" />
+              <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500 bg-[url('/img/promo-3.1780989690.jpg')]" />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
               <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                <h3 className="font-heading text-2xl font-bold text-white mb-2">Sell Your Car</h3>
+                <h3 className="font-heading text-2xl font-bold text-white mb-2">Part Exchange</h3>
                 <Link 
                   to="/contact" 
                   className="w-fit px-5 py-2.5 bg-brand-red hover:bg-red-700 text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition-all"
@@ -156,6 +156,11 @@ export function Home() {
               <div className="flex items-center justify-between pt-4 border-t border-white/10">
                 <span className="text-xs text-white/40">400+ Client Reviews</span>
                 <span className="text-xs font-bold tracking-widest uppercase text-brand-red">Verified Dealer</span>
+              </div>
+
+              <div className="flex items-center gap-6 mt-6 pt-4 border-t border-white/5">
+                <img src="/img/reviews--google.1780989690.png" alt="Google Review Rating" className="h-7 object-contain opacity-80 hover:opacity-100 transition-opacity" />
+                <img src="/img/reviews--autotrader.1780989690.png" alt="AutoTrader Review Rating" className="h-7 object-contain opacity-80 hover:opacity-100 transition-opacity" />
               </div>
             </motion.div>
 

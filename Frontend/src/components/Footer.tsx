@@ -51,33 +51,32 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="flex flex-col gap-6">
             <h3 className="font-heading font-semibold text-lg text-white">
               Quick Links
             </h3>
             <ul className="flex flex-col gap-3">
               {[
-              'Home',
-              'Showroom',
-              'Finance',
-              'Part Exchange',
-              'About Us',
-              'Contact'].
-              map((item) =>
-              <li key={item}>
+                { label: 'Home', path: '/' },
+                { label: 'Showroom', path: '/showroom' },
+                { label: 'Finance', path: '/services' },
+                { label: 'Part Exchange', path: '/contact' },
+                { label: 'About Us', path: '/about' },
+                { label: 'Contact', path: '/contact' }
+              ].map((item) => (
+                <li key={item.label}>
                   <Link
-                  to="#"
-                  className="text-white/60 hover:text-white text-sm flex items-center gap-2 group transition-colors">
-                  
+                    to={item.path}
+                    className="text-white/60 hover:text-white text-sm flex items-center gap-2 group transition-colors"
+                  >
                     <ChevronRight
-                    size={14}
-                    className="text-brand-red opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                  
-                    {item}
+                      size={14}
+                      className="text-brand-red opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all"
+                    />
+                    {item.label}
                   </Link>
                 </li>
-              )}
+              ))}
             </ul>
           </div>
 

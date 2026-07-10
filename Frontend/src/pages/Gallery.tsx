@@ -52,7 +52,7 @@ export function Gallery() {
               duration: 0.5,
               delay: idx % 3 * 0.1
             }}
-            className="group relative aspect-square rounded-2xl overflow-hidden bg-white/5">
+            className="group relative aspect-square rounded-2xl overflow-hidden bg-white/5 hover-glow transition-all duration-300">
             
               <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-500 z-10" />
               <img

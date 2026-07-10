@@ -55,10 +55,9 @@ export function About() {
             
             <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 relative z-10">
               <img
-                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=3273&auto=format&fit=crop"
-                alt="Dealership Showroom"
-                className="w-full h-full object-cover" />
-              
+                src="/img/about-us.jpg"
+                alt="Castlefield Car Centre Dealership Forecourt"
+                className="w-full h-full object-cover animate-fade-in" />
             </div>
             {/* Decorative background element */}
             <div className="absolute -top-6 -right-6 w-full h-full border border-brand-red/30 rounded-3xl z-0" />
@@ -105,7 +104,7 @@ export function About() {
             transition={{
               delay: idx * 0.1
             }}
-            className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
+            className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover-glow transition-all duration-300">
             
               <div className="w-12 h-12 rounded-full bg-black mx-auto flex items-center justify-center mb-4 border border-white/5">
                 {stat.icon}
@@ -131,7 +130,7 @@ export function About() {
           viewport={{
             once: true
           }}
-          className="bg-gradient-to-br from-black to-white/5 border border-white/10 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto relative overflow-hidden">
+          className="bg-gradient-to-br from-black to-white/5 border border-white/10 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto relative overflow-hidden hover-glow transition-all duration-300">
           
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-red to-transparent opacity-50" />
           <h2 className="font-heading text-3xl font-bold text-white mb-6">
