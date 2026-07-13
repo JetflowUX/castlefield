@@ -10,26 +10,32 @@
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 100% 50%; /* Castlefield Red */
+    /* DEFAULT PREMIUM NIGHT SLATE THEME (DARK ONLY) */
+    --background: 220 40% 3%; /* Deep Night Slate `#030712` */
+    --foreground: 220 20% 96%; /* Soft Silver White `#f3f4f6` */
+    --card: 220 30% 6%; /* Dark Card Background `#0b0f19` */
+    --card-foreground: 220 20% 96%;
+    --popover: 220 30% 6%;
+    --popover-foreground: 220 20% 96%;
+    --primary: 0 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 98%;
+    --secondary: 220 20% 12%;
+    --secondary-foreground: 220 20% 96%;
+    --muted: 220 20% 12%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 220 20% 12%;
+    --accent-foreground: 220 20% 96%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
+    --border: 220 20% 13%;
+    --input: 220 20% 13%;
     --ring: 0 100% 50%;
     --radius: 1rem;
+
+    --glass-bg: rgba(11, 15, 25, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-inset: rgba(255, 255, 255, 0.03);
+    --glass-shadow: rgba(0, 0, 0, 0.45);
   }
 }
 @layer base {
@@ -42,9 +48,21 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight;
   }
+  /* Accessible modern focus visibility styles */
+  :focus-visible {
+    outline: 2.5px solid #e11d48 !important;
+    outline-offset: 3px !important;
+    border-radius: 0.5rem !important;
+  }
+  :focus:not(:focus-visible) {
+    outline: none !important;
+  }
 }
 .glass-panel {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), inset 0 1px 1px var(--glass-inset) !important;
 }
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60;
@@ -55,7 +73,7 @@
 
 /* Custom premium scrollbar & smooth scrolling */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: initial;
 }
 
 ::-webkit-scrollbar {
@@ -63,13 +81,13 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: hsl(var(--muted));
   border-radius: 9999px;
-  border: 2px solid #0a0a0a;
+  border: 2px solid hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -90,3 +108,90 @@ html {
   box-shadow: 0 0 30px rgba(225, 29, 72, 0.15);
   border-color: rgba(225, 29, 72, 0.3);
 }
+
+/* Lenis smooth scroll setup */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Mouse follow glow card container styles */
+.glow-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+    rgba(225, 29, 72, 0.06),
+    transparent 80%
+  );
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+.glow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    250px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+    rgba(225, 29, 72, 0.35),
+    var(--glass-border) 40%,
+    transparent 80%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.glow-card:hover::after {
+  opacity: 1;
+}
+
+/* Horizontal scroll track classes */
+.horizontal-scroll-container {
+  display: flex;
+  will-change: transform;
+}
+
+/* Noise overlay utility */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.015;
+}
+

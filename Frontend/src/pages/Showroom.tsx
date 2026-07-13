@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { VehicleCard } from '../components/VehicleCard';
@@ -15,6 +15,17 @@ export function Showroom() {
 
   const [selectedVehicle, setSelectedVehicle] = useState<any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!sidebarRef.current) return;
+    const rect = sidebarRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    sidebarRef.current.style.setProperty('--mouse-x', `${x}px`);
+    sidebarRef.current.style.setProperty('--mouse-y', `${y}px`);
+  };
 
   const handleOpenDetails = (vehicle: any) => {
     setSelectedVehicle(vehicle);
@@ -81,7 +92,7 @@ export function Showroom() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-24 px-4 md:px-6">
+    <div className="min-h-screen pt-32 pb-24 px-4 md:px-6 bg-background text-foreground select-none">
       <div className="container mx-auto">
         <motion.div
           initial={{
@@ -94,13 +105,11 @@ export function Showroom() {
           }}
           className="mb-12">
           
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
             Our Showroom
           </h1>
-          <p className="text-white/60 text-lg max-w-2xl">
-            Browse our curated selection of premium used vehicles. Every car
-            comes with a comprehensive warranty and has undergone rigorous
-            inspection.
+          <p className="text-foreground/60 text-lg max-w-2xl font-light">
+            Browse our curated selection of premium used vehicles. Every car comes with a comprehensive warranty and has undergone rigorous inspection.
           </p>
         </motion.div>
 
@@ -120,20 +129,24 @@ export function Showroom() {
             }}
             className="w-full lg:w-80 flex-shrink-0">
             
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sticky top-32">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="font-heading text-xl font-semibold text-white flex items-center gap-2">
+            <div 
+              ref={sidebarRef}
+              onMouseMove={handleMouseMove}
+              className="glow-card p-6 sticky top-32 cursor-default"
+            >
+              <div className="flex items-center justify-between mb-6 relative z-10">
+                <h2 className="font-heading text-xl font-semibold text-foreground flex items-center gap-2">
                   <Filter size={20} className="text-brand-red" />
                   Filters
                 </h2>
                 <button 
                   onClick={handleClearAll}
-                  className="text-sm text-white/40 hover:text-white transition-colors">
+                  className="text-sm text-foreground/45 hover:text-foreground transition-colors font-medium">
                   Clear All
                 </button>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-6 relative z-10">
                 {/* Search */}
                 <div className="relative">
                   <input
@@ -141,57 +154,57 @@ export function Showroom() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search vehicles..."
-                    className="w-full bg-black/40 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white text-sm focus:outline-none focus:border-brand-red transition-colors" />
+                    className="w-full bg-background/50 border border-border rounded-xl pl-10 pr-4 py-3 text-foreground text-sm focus:outline-none focus:border-brand-red transition-colors placeholder:text-foreground/40" />
                   
                   <Search
                     size={16}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground/45" />
                   
                 </div>
 
                 {/* Make Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-2">
+                  <label className="block text-sm font-medium text-foreground/80 mb-2">
                     Make
                   </label>
                   <div className="relative">
                     <select 
                       value={selectedMake}
                       onChange={(e) => setSelectedMake(e.target.value)}
-                      className="w-full appearance-none bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-red transition-colors">
-                      <option value="">All Makes</option>
+                      className="w-full appearance-none bg-background/50 border border-border rounded-xl px-4 py-3 text-foreground text-sm focus:outline-none focus:border-brand-red transition-colors">
+                      <option value="" className="bg-background">All Makes</option>
                       {uniqueMakes.map(make => (
-                        <option key={make} value={make.toLowerCase()}>{make}</option>
+                        <option key={make} value={make.toLowerCase()} className="bg-background">{make}</option>
                       ))}
                     </select>
                     <ChevronDown
                       size={16}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none" />
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/50 pointer-events-none" />
                     
                   </div>
                 </div>
 
                 {/* Price Range */}
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-2">
+                  <label className="block text-sm font-medium text-foreground/80 mb-2">
                     Max Price
                   </label>
                   <div className="relative">
                     <select 
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
-                      className="w-full appearance-none bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-red transition-colors">
-                      <option value="">Any Price</option>
-                      <option value="5000">Up to £5,000</option>
-                      <option value="10000">Up to £10,000</option>
-                      <option value="15000">Up to £15,000</option>
-                      <option value="25000">Up to £25,000</option>
-                      <option value="50000">Up to £50,000</option>
-                      <option value="100000">Up to £100,000</option>
+                      className="w-full appearance-none bg-background/50 border border-border rounded-xl px-4 py-3 text-foreground text-sm focus:outline-none focus:border-brand-red transition-colors">
+                      <option value="" className="bg-background">Any Price</option>
+                      <option value="5000" className="bg-background">Up to £5,000</option>
+                      <option value="10000" className="bg-background">Up to £10,000</option>
+                      <option value="15000" className="bg-background">Up to £15,000</option>
+                      <option value="25000" className="bg-background">Up to £25,000</option>
+                      <option value="50000" className="bg-background">Up to £50,000</option>
+                      <option value="100000" className="bg-background">Up to £100,000</option>
                     </select>
                     <ChevronDown
                       size={16}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none" />
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/50 pointer-events-none" />
                     
                   </div>
                 </div>
@@ -202,26 +215,26 @@ export function Showroom() {
           {/* Vehicle Grid */}
           <div className="flex-1">
             <div className="flex items-center justify-between mb-6">
-              <p className="text-white/60 text-sm">
+              <p className="text-foreground/60 text-sm">
                 Showing {filteredVehicles.length} vehicles
               </p>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-white/60">Sort by:</span>
+                <span className="text-sm text-foreground/60">Sort by:</span>
                 <select 
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-transparent border-none text-white text-sm focus:outline-none cursor-pointer">
-                  <option className="bg-black" value="Newest First">Newest First</option>
-                  <option className="bg-black" value="Price: Low to High">Price: Low to High</option>
-                  <option className="bg-black" value="Price: High to Low">Price: High to Low</option>
-                  <option className="bg-black" value="Mileage: Low to High">Mileage: Low to High</option>
+                  className="bg-transparent border-none text-foreground text-sm focus:outline-none cursor-pointer font-semibold">
+                  <option className="bg-background" value="Newest First">Newest First</option>
+                  <option className="bg-background" value="Price: Low to High">Price: Low to High</option>
+                  <option className="bg-background" value="Price: High to Low">Price: High to Low</option>
+                  <option className="bg-background" value="Mileage: Low to High">Mileage: Low to High</option>
                 </select>
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredVehicles.map((vehicle, idx) =>
-              <VehicleCard key={vehicle.id} {...vehicle} delay={idx * 0.03} onViewDetails={handleOpenDetails} />
+                <VehicleCard key={vehicle.id} {...vehicle} delay={idx * 0.03} onViewDetails={handleOpenDetails} />
               )}
             </div>
           </div>
@@ -229,5 +242,4 @@ export function Showroom() {
       </div>
       <VehicleDetailsModal vehicle={selectedVehicle} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>);
-
 }

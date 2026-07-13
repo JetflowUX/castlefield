@@ -7,6 +7,8 @@ import { Gallery } from './pages/Gallery';
 import { Services } from './pages/Services';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
+import { Sitemap } from './pages/Sitemap';
+
 export function App() {
   return (
     <BrowserRouter>
@@ -18,8 +20,9 @@ export function App() {
           <Route path="services" element={<Services />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="sitemap" element={<Sitemap />} />
         </Route>
       </Routes>
-    </BrowserRouter>);
-
+    </BrowserRouter>
+  );
 }

@@ -33,6 +33,17 @@ export function VehicleCard(props: VehicleCardProps) {
     onViewDetails
   } = props;
 
+  const cardRef = React.useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   const handleCardClick = (e: React.MouseEvent) => {
     if (onViewDetails) {
       e.preventDefault();
@@ -42,6 +53,8 @@ export function VehicleCard(props: VehicleCardProps) {
 
   return (
     <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
       initial={{
         opacity: 0,
         y: 20
@@ -59,59 +72,61 @@ export function VehicleCard(props: VehicleCardProps) {
         delay
       }}
       onClick={handleCardClick}
-      className={`group relative rounded-2xl overflow-hidden bg-card border border-white/5 hover:border-white/20 hover-glow transition-all duration-500 ${
+      className={`group relative rounded-2xl glow-card shadow-sm ${
         onViewDetails ? 'cursor-pointer' : ''
       }`}>
       
-      {/* Image Container */}
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
-        <img
-          src={image}
-          alt={`${make} ${model}`}
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" />
-        
-        <div className="absolute top-4 right-4 z-20">
-          <div className="px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-white/10 text-white font-semibold text-sm">
-            {price}
-          </div>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="font-heading text-xl font-semibold text-white mb-1 group-hover:text-brand-red transition-colors">
-          {make} <span className="font-light">{model}</span>
-        </h3>
-
-        <div className="w-full h-px bg-gradient-to-r from-white/10 to-transparent my-4" />
-
-        {/* Specs Grid */}
-        <div className="grid grid-cols-2 gap-y-4 gap-x-2">
-          <div className="flex items-center gap-2 text-white/60 text-sm">
-            <Calendar size={16} className="text-white/40" />
-            <span>{year}</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/60 text-sm">
-            <Gauge size={16} className="text-white/40" />
-            <span>{mileage}</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/60 text-sm">
-            <Fuel size={16} className="text-white/40" />
-            <span>{fuel}</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/60 text-sm">
-            <Settings size={16} className="text-white/40" />
-            <span>{transmission}</span>
+      {/* Inner relative container to stack above border glow overlay */}
+      <div className="relative z-10 w-full h-full flex flex-col">
+        {/* Image Container */}
+        <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10" />
+          <img
+            src={image}
+            alt={`${make} ${model}`}
+            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+          
+          <div className="absolute top-4 right-4 z-20">
+            <div className="px-3 py-1.5 bg-black/70 backdrop-blur-md rounded-full border border-white/10 text-white font-semibold text-sm">
+              {price}
+            </div>
           </div>
         </div>
 
-        <button 
-          onClick={handleCardClick}
-          className="w-full mt-6 py-3 bg-white/5 hover:bg-brand-red text-white text-sm font-medium rounded-xl transition-colors border border-white/10 hover:border-brand-red">
-          View Details
-        </button>
+        {/* Content */}
+        <div className="p-6">
+          <h3 className="font-heading text-xl font-bold text-foreground mb-1 group-hover:text-brand-red transition-colors">
+            {make} <span className="font-light">{model}</span>
+          </h3>
+
+          <div className="w-full h-px bg-gradient-to-r from-border to-transparent my-4" />
+
+          {/* Specs Grid */}
+          <div className="grid grid-cols-2 gap-y-4 gap-x-2">
+            <div className="flex items-center gap-2 text-foreground/60 text-sm font-medium">
+              <Calendar size={16} className="text-foreground/45" />
+              <span>{year}</span>
+            </div>
+            <div className="flex items-center gap-2 text-foreground/60 text-sm font-medium">
+              <Gauge size={16} className="text-foreground/45" />
+              <span>{mileage}</span>
+            </div>
+            <div className="flex items-center gap-2 text-foreground/60 text-sm font-medium">
+              <Fuel size={16} className="text-foreground/45" />
+              <span>{fuel}</span>
+            </div>
+            <div className="flex items-center gap-2 text-foreground/60 text-sm font-medium">
+              <Settings size={16} className="text-foreground/45" />
+              <span>{transmission}</span>
+            </div>
+          </div>
+
+          <button 
+            onClick={handleCardClick}
+            className="w-full mt-6 py-3 bg-foreground/5 hover:bg-brand-red text-foreground hover:text-white text-sm font-bold rounded-xl transition-all border border-border hover:border-brand-red active:scale-98">
+            View Details
+          </button>
+        </div>
       </div>
     </motion.div>);
-
 }

@@ -9,70 +9,59 @@ import {
   Youtube,
   ChevronRight } from
 'lucide-react';
+
 export function Footer() {
   return (
-    <footer className="bg-black border-t border-white/10 pt-20 pb-10">
+    <footer className="bg-card border-t border-border pt-20 pb-10 select-none text-foreground">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand & About */}
+        
+        {/* Footer Top Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 mb-16">
+          
+          {/* Brand Info */}
           <div className="flex flex-col gap-6">
-            <Link
-              to="/"
-              className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img 
                 src="/img/logo.1780989690.png" 
                 alt="Castlefield Car Centre" 
-                className="h-10 md:h-12 w-auto object-contain" 
+                className="h-10 md:h-12 w-auto object-contain dark:brightness-100 brightness-95" 
               />
             </Link>
-            <p className="text-white/60 text-sm leading-relaxed">
-              Premium used car dealership based in Manchester. Every car sold
-              comes with warranty for your peace of mind.
+            <p className="text-foreground/50 text-xs md:text-sm leading-relaxed font-light">
+              Premium used car dealership based in Manchester. Every car sold comes with warranty for your peace of mind.
             </p>
-            <div className="flex items-center gap-4">
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-brand-red hover:text-white transition-all">
-                
-                <Instagram size={18} />
+            <div className="flex items-center gap-3">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/50 hover:bg-brand-red hover:text-white hover:scale-105 transition-all">
+                <Instagram size={16} />
               </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-brand-red hover:text-white transition-all">
-                
-                <Facebook size={18} />
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/50 hover:bg-brand-red hover:text-white hover:scale-105 transition-all">
+                <Facebook size={16} />
               </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-brand-red hover:text-white transition-all">
-                
-                <Youtube size={18} />
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/50 hover:bg-brand-red hover:text-white hover:scale-105 transition-all">
+                <Youtube size={16} />
               </a>
             </div>
           </div>
 
-          <div className="flex flex-col gap-6">
-            <h3 className="font-heading font-semibold text-lg text-white">
-              Quick Links
+          {/* Showroom Navigation Column */}
+          <div className="flex flex-col gap-5">
+            <h3 className="font-heading font-semibold text-sm text-foreground uppercase tracking-wider">
+              Showroom
             </h3>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-2.5">
               {[
-                { label: 'Home', path: '/' },
-                { label: 'Showroom', path: '/showroom' },
-                { label: 'Finance', path: '/services' },
-                { label: 'Part Exchange', path: '/contact' },
-                { label: 'About Us', path: '/about' },
-                { label: 'Contact', path: '/contact' }
+                { label: 'View All Cars', path: '/showroom' },
+                { label: 'Used Audi', path: '/showroom?make=audi' },
+                { label: 'Used BMW', path: '/showroom?make=bmw' },
+                { label: 'Used Land Rover', path: '/showroom?make=land-rover' },
+                { label: 'Used Mercedes-Benz', path: '/showroom?make=mercedes-benz' },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
                     to={item.path}
-                    className="text-white/60 hover:text-white text-sm flex items-center gap-2 group transition-colors"
+                    className="text-foreground/50 hover:text-foreground text-xs md:text-sm flex items-center gap-1.5 group transition-colors font-medium"
                   >
-                    <ChevronRight
-                      size={14}
-                      className="text-brand-red opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all"
-                    />
+                    <ChevronRight size={12} className="text-brand-red opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                     {item.label}
                   </Link>
                 </li>
@@ -80,107 +69,123 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Opening Hours */}
-          <div className="flex flex-col gap-6">
-            <h3 className="font-heading font-semibold text-lg text-white">
-              Opening Hours
+          {/* Services Column */}
+          <div className="flex flex-col gap-5">
+            <h3 className="font-heading font-semibold text-sm text-foreground uppercase tracking-wider">
+              Services
             </h3>
-            <ul className="flex flex-col gap-3 text-sm text-white/60">
-              <li className="flex justify-between items-center border-b border-white/5 pb-2">
-                <span>Monday - Saturday</span>
-                <span className="text-white">10:00 - 17:00</span>
-              </li>
-              <li className="flex justify-between items-center border-b border-white/5 pb-2">
-                <span>Sunday</span>
-                <span className="text-white">Closed</span>
-              </li>
+            <ul className="flex flex-col gap-2.5">
+              {[
+                { label: 'Car Finance', path: '/services#finance' },
+                { label: 'Part Exchange', path: '/services#partex' },
+                { label: 'Vehicle Sourcing', path: '/services#sourcing' },
+                { label: 'Looking to Sell?', path: '/contact?type=sell' },
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link
+                    to={item.path}
+                    className="text-foreground/50 hover:text-foreground text-xs md:text-sm flex items-center gap-1.5 group transition-colors font-medium"
+                  >
+                    <ChevronRight size={12} className="text-brand-red opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div className="flex flex-col gap-6">
-            <h3 className="font-heading font-semibold text-lg text-white">
-              Contact Us
+          {/* About & Hours Column */}
+          <div className="flex flex-col gap-5">
+            <h3 className="font-heading font-semibold text-sm text-foreground uppercase tracking-wider">
+              About & Hours
             </h3>
-            <ul className="flex flex-col gap-4">
-              <li>
-                <a
-                  href="tel:01615050508"
-                  className="flex items-start gap-3 text-white/60 hover:text-white transition-colors group">
-                  
-                  <div className="mt-1 text-brand-red group-hover:scale-110 transition-transform">
-                    <Phone size={18} />
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wider mb-1">
-                      Call Us
-                    </div>
-                    <div className="text-white font-medium">0161 50 50 508</div>
-                  </div>
-                </a>
+            <ul className="flex flex-col gap-2 text-xs text-foreground/50 mb-3 border-b border-border pb-3">
+              <li className="flex justify-between items-center">
+                <span>Mon - Sat</span>
+                <span className="text-foreground font-semibold">10:00 - 17:00</span>
               </li>
-              <li>
-                <a
-                  href="mailto:sales@castlefieldcarcentre.co.uk"
-                  className="flex items-start gap-3 text-white/60 hover:text-white transition-colors group">
-                  
-                  <div className="mt-1 text-brand-red group-hover:scale-110 transition-transform">
-                    <Mail size={18} />
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wider mb-1">
-                      Email Us
-                    </div>
-                    <div className="text-white text-sm">
-                      sales@castlefieldcarcentre.co.uk
-                    </div>
-                  </div>
-                </a>
+              <li className="flex justify-between items-center">
+                <span>Sunday</span>
+                <span className="text-brand-red font-semibold">Closed</span>
               </li>
-              <li>
-                <div className="flex items-start gap-3 text-white/60 group">
-                  <div className="mt-1 text-brand-red">
-                    <MapPin size={18} />
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wider mb-1">
-                      Location
-                    </div>
-                    <div className="text-sm leading-relaxed">
-                      Castlefield Car Centre
-                      <br />
-                      1 Adelaide Street, Heywood,
-                      <br />
-                      Manchester, Lancashire, OL10 4HQ
-                    </div>
-                  </div>
+            </ul>
+            <ul className="flex flex-col gap-2.5">
+              {[
+                { label: 'About Us', path: '/about' },
+                { label: 'Customer Reviews', path: '/about#testimonials' },
+                { label: 'Complaint Procedure', path: '/about#complaints' },
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link
+                    to={item.path}
+                    className="text-foreground/50 hover:text-foreground text-xs md:text-sm flex items-center gap-1.5 group transition-colors font-medium"
+                  >
+                    <ChevronRight size={12} className="text-brand-red opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Details Column */}
+          <div className="flex flex-col gap-5">
+            <h3 className="font-heading font-semibold text-sm text-foreground uppercase tracking-wider">
+              Contact Info
+            </h3>
+            <ul className="flex flex-col gap-3.5 text-xs text-foreground/50">
+              <li className="flex items-start gap-2.5 group">
+                <Phone size={14} className="text-brand-red mt-0.5" />
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-foreground/30 mb-0.5">Call Us</div>
+                  <a href="tel:01615050508" className="text-foreground hover:text-brand-red font-bold transition-colors">0161 50 50 508</a>
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5 group">
+                <Mail size={14} className="text-brand-red mt-0.5" />
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-foreground/30 mb-0.5">Email Us</div>
+                  <a href="mailto:sales@castlefieldcarcentre.co.uk" className="text-foreground hover:text-brand-red transition-colors">sales@castlefieldcarcentre.co.uk</a>
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <MapPin size={14} className="text-brand-red mt-0.5" />
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-foreground/30 mb-0.5">Location</div>
+                  <span className="text-foreground font-semibold leading-relaxed">
+                    1 Adelaide Street, Heywood,<br />
+                    Manchester, OL10 4HQ
+                  </span>
                 </div>
               </li>
             </ul>
           </div>
+
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
+        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-foreground/40">
           <p>
-            &copy; {new Date().getFullYear()} Castlefield Car Centre. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Castlefield Car Centre. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <Link to="#" className="hover:text-white transition-colors">
+            <Link to="/sitemap" className="hover:text-foreground transition-colors font-medium text-brand-red">
+              Sitemap
+            </Link>
+            <Link to="#" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link to="#" className="hover:text-white transition-colors">
+            <Link to="#" className="hover:text-foreground transition-colors">
               Cookie Policy
             </Link>
-            <Link to="#" className="hover:text-white transition-colors">
+            <Link to="#" className="hover:text-foreground transition-colors">
               Terms & Conditions
             </Link>
           </div>
         </div>
 
         {/* FCA Regulatory Disclaimer */}
-        <div className="mt-6 pt-6 border-t border-white/5 text-[10px] text-white/30 leading-relaxed">
+        <div className="mt-6 pt-6 border-t border-border/50 text-[10px] text-foreground/30 leading-relaxed font-light">
           <p>
             Castlefield Car Centre Ltd is authorised and regulated by the Financial Conduct Authority, FRN: 845701. 
             All finance is subject to status and income. Written Quotation on request. We act as a credit broker not a lender. 
@@ -188,7 +193,8 @@ export function Footer() {
             We are only able to offer finance products from these providers.
           </p>
         </div>
-      </div>
-    </footer>);
 
+      </div>
+    </footer>
+  );
 }
